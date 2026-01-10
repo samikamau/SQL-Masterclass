@@ -289,15 +289,95 @@ GROUP BY dept;
 
 --Level 4 – GROUP BY and HAVING
 --31.	Total invoice amount per customer.
+SELECT
+c.customer_name,
+SUM(i.invoice_amount) AS amount_per_customer
+FROM customers c
+LEFT JOIN invoices i ON c.customer_id = i.customer_id
+GROUP BY c.customer_name
+ORDER BY amount_per_customer DESC;
 --32.	Total invoice amount per sales rep.
+SELECT 
+s.rep_name,
+SUM(i.invoice_amount)AS total_amount
+FROM sales_reps s
+LEFT JOIN invoices i ON s.rep_id = i.rep_id
+GROUP BY s.rep_name
+ORDER By total_amount DESC;
+
 --33.	Total payments received per customer.
+SELECT
+c.customer_name,
+i.customer_id,
+SUM(p.amount_paid)AS total_paid_per_customer
+FROM customers c
+LEFT JOIN invoices i ON c.customer_id = i.customer_id
+LEFT JOIN payments p ON i.invoice_id = p.invoice_id
+GROUP BY c.customer_name,i.customer_id
+ORDER BY total_paid_per_customer DESC;
+
 --34.	Count of invoices per sales rep.
+SELECT
+s.rep_name,
+COUNT(i.invoice_id) AS invoices_per_sale_rep
+FROM sales_reps s
+LEFT JOIN invoices i ON s.rep_id = i.rep_id
+GROUP BY s.rep_name;
+
 --35.	Average invoice amount per customer.
+SELECT
+c.customer_name,
+ROUND(AVG(i.invoice_amount),2) AS avg_invoice_amount
+FROM customers c
+LEFT JOIN invoices i ON c.customer_id = i.customer_id
+GROUP BY c.customer_name
+ORDER BY avg_invoice_amount DESC;
 --36.	Customers with total invoice amount > 200000.
+SELECT
+c.customer_name,
+ROUND(SUM(i.invoice_amount),2) AS sum_invoice_amount
+FROM customers c
+LEFT JOIN invoices i ON c.customer_id = i.customer_id
+GROUP BY c.customer_name
+HAVING SUM(i.invoice_amount)>20000
+ORDER BY sum_invoice_amount DESC ;
 --37.	Departments with average gross_pay > 80000.
+SELECT
+dept,
+ROUND(AVG(gross_pay),2) AS avg_gross_pay
+FROM tax_payroll
+GROUP BY dept
+HAVING AVG(gross_pay)>80000
+ORDER BY avg_gross_pay DESC;
+
 --38.	Count of employees with net_pay > 50000 per department.
+SELECT
+dept,
+COUNT(CASE WHEN net_pay >50000 THEN 1 END)AS number_of_employees
+FROM tax_payroll
+GROUP BY dept
+ORDER BY number_of_employees DESC;
+
 --39.	Total payments per invoice.
+SELECT
+i.invoice_id,
+SUM(p.amount_paid)AS total_paid
+FROM invoices i
+LEFT JOIN payments p ON i.invoice_id = p.invoice_id
+GROUP BY i.invoice_id
+ORDER BY total_paid DESC;
+
 --40.	Sales reps with more than 3 invoices.
+SELECT
+s.rep_name,
+COUNT(i.invoice_id) AS total_invoices
+FROM sales_reps s
+LEFT JOIN invoices i ON s.rep_id =i.rep_id
+GROUP BY s.rep_name
+HAVING COUNT(i.invoice_id)>3
+ORDER BY total_invoices;
+
+
 --Level 5 – Joins (INNER, LEFT, RIGHT, FULL)
 --41.	Join invoices and customers to get customer_name for each invoice.
 --42.	Join invoices and sales_reps to get rep_name for each invoice.
