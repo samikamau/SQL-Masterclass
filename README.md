@@ -1,5 +1,3 @@
-# SQL-Masterclass
-SQL practice Data_set &amp; Questions
 -- 1️⃣ CLEAN UP (drop dependent objects first)
 DROP VIEW IF EXISTS vw_sales_analysis;
 DROP TABLE IF EXISTS payments;
@@ -9,7 +7,6 @@ DROP TABLE IF EXISTS sales_reps;
 DROP TABLE IF EXISTS tax_payroll;
 
 -- 2️⃣ CREATE TABLES
-
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
     customer_name VARCHAR(255),
@@ -51,119 +48,60 @@ CREATE TABLE tax_payroll(
 
 -- 3️⃣ INSERT CUSTOMERS (20 entries)
 INSERT INTO customers(customer_name, city) VALUES
-('Alpha Traders','Nairobi'),
-('Beta Stores','Mombasa'),
-('Gamma Supplies','Kisumu'),
-('Delta Enterprises','Nairobi'),
-('Epsilon Ltd','Nakuru'),
-('Zeta Corp','Eldoret'),
-('Eta Enterprises','Nairobi'),
-('Theta Solutions','Mombasa'),
-('Iota Traders','Kisumu'),
-('Kappa Industries','Nairobi'),
-('Lambda Ltd','Nakuru'),
-('Mu Co','Eldoret'),
-('Nu Enterprises','Nairobi'),
-('Xi Solutions','Mombasa'),
-('Omicron Traders','Kisumu'),
-('Pi Industries','Nairobi'),
-('Rho Ltd','Nakuru'),
-('Sigma Co','Eldoret'),
-('Tau Enterprises','Nairobi'),
-('Upsilon Traders','Mombasa');
+('Alpha Traders','Nairobi'), ('Beta Stores','Mombasa'), ('Gamma Supplies','Kisumu'),
+('Delta Enterprises','Nairobi'), ('Epsilon Ltd','Nakuru'), ('Zeta Corp','Eldoret'),
+('Eta Enterprises','Nairobi'), ('Theta Solutions','Mombasa'), ('Iota Traders','Kisumu'),
+('Kappa Industries','Nairobi'), ('Lambda Ltd','Nakuru'), ('Mu Co','Eldoret'),
+('Nu Enterprises','Nairobi'), ('Xi Solutions','Mombasa'), ('Omicron Traders','Kisumu'),
+('Pi Industries','Nairobi'), ('Rho Ltd','Nakuru'), ('Sigma Co','Eldoret'),
+('Tau Enterprises','Nairobi'), ('Upsilon Traders','Mombasa');
 
 -- 4️⃣ INSERT SALES REPS (5 entries)
 INSERT INTO sales_reps(rep_name) VALUES
-('James Kariuki'),
-('Mary Wanjiru'),
-('Brian Otieno'),
-('Alice Mwikali'),
-('Kevin Odhiambo');
+('James Kariuki'), ('Mary Wanjiru'), ('Brian Otieno'), ('Alice Mwikali'), ('Kevin Odhiambo');
 
 -- 5️⃣ INSERT INVOICES (20 entries)
 INSERT INTO invoices(customer_id, rep_id, invoice_date, invoice_amount) VALUES
-(1,1,'2025-01-10',120000),
-(2,1,'2025-01-15',85000),
-(3,2,'2025-01-20',45000),
-(4,3,'2025-01-25',200000),
-(5,2,'2025-02-01',75000),
-(6,4,'2025-02-05',95000),
-(7,5,'2025-02-10',60000),
-(8,1,'2025-02-15',80000),
-(9,2,'2025-02-20',55000),
-(10,3,'2025-02-25',100000),
-(11,4,'2025-03-01',120000),
-(12,5,'2025-03-05',90000),
-(13,1,'2025-03-10',70000),
-(14,2,'2025-03-15',65000),
-(15,3,'2025-03-20',85000),
-(16,4,'2025-03-25',95000),
-(17,5,'2025-04-01',105000),
-(18,1,'2025-04-05',115000),
-(19,2,'2025-04-10',125000),
-(20,3,'2025-04-15',135000);
+(1,1,'2025-01-10',120000), (2,1,'2025-01-15',85000), (3,2,'2025-01-20',45000),
+(4,3,'2025-01-25',200000), (5,2,'2025-02-01',75000), (6,4,'2025-02-05',95000),
+(7,5,'2025-02-10',60000), (8,1,'2025-02-15',80000), (9,2,'2025-02-20',55000),
+(10,3,'2025-02-25',100000), (11,4,'2025-03-01',120000), (12,5,'2025-03-05',90000),
+(13,1,'2025-03-10',70000), (14,2,'2025-03-15',65000), (15,3,'2025-03-20',85000),
+(16,4,'2025-03-25',95000), (17,5,'2025-04-01',105000), (18,1,'2025-04-05',115000),
+(19,2,'2025-04-10',125000), (20,3,'2025-04-15',135000);
 
 -- 6️⃣ INSERT PAYMENTS (20 entries, some partial)
 INSERT INTO payments(invoice_id, payment_date, amount_paid) VALUES
-(1,'2025-01-20',50000),
-(1,'2025-02-10',70000),
-(2,'2025-01-30',85000),
-(3,'2025-02-01',45000),
-(4,'2025-02-05',100000),
-(5,'2025-02-15',50000),
-(6,'2025-02-20',95000),
-(7,'2025-02-25',60000),
-(8,'2025-03-01',40000),
-(9,'2025-03-05',55000),
-(10,'2025-03-10',50000),
-(11,'2025-03-15',120000),
-(12,'2025-03-20',90000),
-(13,'2025-03-25',35000),
-(14,'2025-04-01',65000),
-(15,'2025-04-05',85000),
-(16,'2025-04-10',95000),
-(17,'2025-04-15',105000),
-(18,'2025-04-20',115000),
-(19,'2025-04-25',125000),
-(20,'2025-04-30',135000);
+(1,'2025-01-20',50000), (1,'2025-02-10',70000), (2,'2025-01-30',85000),
+(3,'2025-02-01',45000), (4,'2025-02-05',100000), (5,'2025-02-15',50000),
+(6,'2025-02-20',95000), (7,'2025-02-25',60000), (8,'2025-03-01',40000),
+(9,'2025-03-05',55000), (10,'2025-03-10',50000), (11,'2025-03-15',120000),
+(12,'2025-03-20',90000), (13,'2025-03-25',35000), (14,'2025-04-01',65000),
+(15,'2025-04-05',85000), (16,'2025-04-10',95000), (17,'2025-04-15',105000),
+(18,'2025-04-20',115000), (19,'2025-04-25',125000), (20,'2025-04-30',135000);
 
--- 7️⃣ INSERT PAYROLL (30 employees) and calculate SHIF, AHL, NSSF, taxable_pay, PAYE, net_pay
+-- 7️⃣ INSERT PAYROLL (30 employees) with calculated SHIF, AHL, NSSF, TAXABLE_PAY, PAYE, NET_PAY
 WITH employees AS (
     SELECT * FROM (VALUES
-    ('Mike Maina', 'Finance', 50000),
-    ('Steve Mbogo', 'Sales', 24000),
-    ('Cliff Obeta', 'Finance', 72000),
-    ('Nancy Akinyi', 'IT', 500000),
-    ('Linda Momanyi', 'Sales', 50000),
-    ('Peter Njoroge', 'Finance', 65000),
-    ('Sarah Wanjiku', 'IT', 90000),
-    ('James Mwangi', 'Sales', 30000),
-    ('Alice Cheruiyot', 'HR', 45000),
-    ('Brian Odhiambo', 'Finance', 80000),
-    ('Catherine Kimani', 'IT', 120000),
-    ('Daniel Ouma', 'Sales', 40000),
-    ('Esther Mwikali', 'HR', 35000),
-    ('Frank Otieno', 'Finance', 95000),
-    ('Grace Achieng', 'IT', 60000),
-    ('Henry Karanja', 'Sales', 28000),
-    ('Irene Nduta', 'HR', 50000),
-    ('John Kamau', 'Finance', 110000),
-    ('Joyce Wairimu', 'IT', 70000),
-    ('Kevin Oduor', 'Sales', 38000),
-    ('Linda Njeri', 'HR', 32000),
-    ('Martin Mutua', 'Finance', 125000),
-    ('Nancy Chebet', 'IT', 80000),
-    ('Oliver Kibet', 'Sales', 45000),
-    ('Patricia Wanjiru', 'HR', 40000),
-    ('Quentin Otieno', 'Finance', 55000),
-    ('Ruth Njeri', 'IT', 95000),
-    ('Samuel Kiptoo', 'Sales', 60000),
-    ('Theresa Akinyi', 'HR', 37000),
-    ('Victor Ochieng', 'Finance', 100000)
+        ('Mike Maina', 'Finance', 50000), ('Steve Mbogo', 'Sales', 24000),
+        ('Cliff Obeta', 'Finance', 72000), ('Nancy Akinyi', 'IT', 500000),
+        ('Linda Momanyi', 'Sales', 50000), ('Peter Njoroge', 'Finance', 65000),
+        ('Sarah Wanjiku', 'IT', 90000), ('James Mwangi', 'Sales', 30000),
+        ('Alice Cheruiyot', 'HR', 45000), ('Brian Odhiambo', 'Finance', 80000),
+        ('Catherine Kimani', 'IT', 120000), ('Daniel Ouma', 'Sales', 40000),
+        ('Esther Mwikali', 'HR', 35000), ('Frank Otieno', 'Finance', 95000),
+        ('Grace Achieng', 'IT', 60000), ('Henry Karanja', 'Sales', 28000),
+        ('Irene Nduta', 'HR', 50000), ('John Kamau', 'Finance', 110000),
+        ('Joyce Wairimu', 'IT', 70000), ('Kevin Oduor', 'Sales', 38000),
+        ('Linda Njeri', 'HR', 32000), ('Martin Mutua', 'Finance', 125000),
+        ('Nancy Chebet', 'IT', 80000), ('Oliver Kibet', 'Sales', 45000),
+        ('Patricia Wanjiru', 'HR', 40000), ('Quentin Otieno', 'Finance', 55000),
+        ('Ruth Njeri', 'IT', 95000), ('Samuel Kiptoo', 'Sales', 60000),
+        ('Theresa Akinyi', 'HR', 37000), ('Victor Ochieng', 'Finance', 100000)
     ) AS t(full_name, dept, gross_pay)
 )
 INSERT INTO tax_payroll(full_name, dept, gross_pay, shif, ahl, nssf, taxable_pay, paye, net_pay)
-SELECT
+SELECT 
     full_name,
     dept,
     gross_pay,
@@ -178,7 +116,7 @@ SELECT
         WHEN gross_pay - (gross_pay*0.0275) - (gross_pay*0.015) - LEAST(gross_pay*0.06,4320) <= 800000 THEN ROUND(GREATEST(24000*0.10+(32333-24000)*0.25+(500000-32333)*0.30+((gross_pay - (gross_pay*0.0275) - (gross_pay*0.015) - LEAST(gross_pay*0.06,4320))-500000)*0.325-2400,0),2)
         ELSE ROUND(GREATEST(24000*0.10+(32333-24000)*0.25+(500000-32333)*0.30+(800000-500000)*0.325+((gross_pay - (gross_pay*0.0275) - (gross_pay*0.015) - LEAST(gross_pay*0.06,4320))-800000)*0.35-2400,0),2)
     END AS paye,
-    gross_pay - ROUND(gross_pay*0.0275,2) - ROUND(gross_pay*0.015,2) - ROUND(LEAST(gross_pay*0.06,4320),2) -
+    gross_pay - ROUND(gross_pay*0.0275,2) - ROUND(gross_pay*0.015,2) - ROUND(LEAST(gross_pay*0.06,4320),2) - 
     CASE 
         WHEN gross_pay - (gross_pay*0.0275) - (gross_pay*0.015) - LEAST(gross_pay*0.06,4320) <= 24000 THEN ROUND(GREATEST((gross_pay - (gross_pay*0.0275) - (gross_pay*0.015) - LEAST(gross_pay*0.06,4320))*0.10-2400,0),2)
         WHEN gross_pay - (gross_pay*0.0275) - (gross_pay*0.015) - LEAST(gross_pay*0.06,4320) <= 32333 THEN ROUND(GREATEST(24000*0.10+((gross_pay - (gross_pay*0.0275) - (gross_pay*0.015) - LEAST(gross_pay*0.06,4320))-24000)*0.25-2400,0),2)
@@ -209,117 +147,146 @@ GROUP BY i.invoice_id, c.customer_name, c.city, s.rep_name, i.invoice_date, i.in
 SELECT * FROM vw_sales_analysis ORDER BY invoice_id;
 SELECT * FROM tax_payroll ORDER BY id;
 
----1.	Select all columns from customers.
-SELECT*FROM customers;
---2.	Select only customer_name and city from customers.
-SELECT customer_name,city FROM customers;
---3.	Select all sales reps’ names from sales_reps.
+
+-- ============================================
+-- 4️⃣ QUERIES FOR QUESTIONS 1–30
+-- ============================================
+
+-- 1. Select all columns from customers
+SELECT * FROM customers;
+-- Note: all customer details
+
+-- 2. Select only customer_name and city from customers
+SELECT customer_name, city FROM customers;
+-- Note: customer names and cities
+
+-- 3. Select all sales reps’ names from sales_reps
 SELECT rep_name FROM sales_reps;
---4.	Select invoices where invoice_amount > 100000.
-SELECT invoice_id, invoice_amount
-FROM invoices
-WHERE invoice_amount>100000;
---5.	Select payments greater than 50000.
-SELECT payment_id, amount_paid
-FROM payments
-WHERE amount_paid>50000;
+-- Note: list of all sales reps
 
---6.	Select employees in the Finance department.
+-- 4. Select invoices where invoice_amount > 100000
+SELECT invoice_id, invoice_amount FROM invoices WHERE invoice_amount > 100000;
+-- Note: invoices greater than 100,000
 
-SELECT full_name, dept
-FROM tax_payroll
-WHERE Dept = 'Finance';
+-- 5. Select payments greater than 50000
+SELECT payment_id, amount_paid FROM payments WHERE amount_paid > 50000;
+-- Note: payments exceeding 50,000
 
---7.	Select all invoices ordered by invoice_date ascending.
-SELECT 
-invoice_id,
-invoice_date,
-invoice_amount
-FROM invoices
-ORDER BY invoice_date ASC;
+-- 6. Select employees in the Finance department
+SELECT full_name, dept FROM tax_payroll WHERE dept = 'Finance';
+-- Note: employees in Finance
 
---8.	Select all payroll employees ordered by gross_pay descending.
-SELECT 
-full_name,
-gross_pay
-FROM tax_payroll
-ORDER BY gross_pay DESC;
---9.	Select customers from Nairobi.
-SELECT 
-customer_id,
-Customer_name
-FROM customers
-WHERE city = 'Nairobi';
+-- 7. Select all invoices ordered by invoice_date ascending
+SELECT invoice_id, invoice_date, invoice_amount FROM invoices ORDER BY invoice_date ASC;
+-- Note: invoices sorted by date ascending
 
---10.	Select sales reps whose name starts with 'J'.
-SELECT rep_name FROM sales_reps
-WHERE rep_name LIKE 'J%';
+-- 8. Select all payroll employees ordered by gross_pay descending
+SELECT full_name, gross_pay FROM tax_payroll ORDER BY gross_pay DESC;
+-- Note: employees sorted by highest gross pay
 
---Level 2 – Filtering (WHERE, LIKE, IN, BETWEEN)
---11.	Select invoices between '2025-02-01' and '2025-03-01'.
-SELECT *FROM invoices
-WHERE invoice_date BETWEEN '2025-02-01' AND '2025-03-01';
+-- 9. Select customers from Nairobi
+SELECT customer_id, customer_name FROM customers WHERE city = 'Nairobi';
+-- Note: customers in Nairobi
 
---12.	Select employees with gross_pay between 50000 and 100000.
-SELECT *FROM tax_payroll
-WHERE gross_pay BETWEEN 50000 AND 100000;
+-- 10. Select sales reps whose name starts with 'J'
+SELECT rep_name FROM sales_reps WHERE rep_name LIKE 'J%';
+-- Note: sales reps with names starting with 'J'
 
---13.	Select customers whose name contains 'Enterprises'.
+-- 11. Select invoices between '2025-02-01' and '2025-03-01'
+SELECT * FROM invoices WHERE invoice_date BETWEEN '2025-02-01' AND '2025-03-01';
+-- Note: invoices in this date range
 
-SELECT *FROM customers
-WHERE customer_name ILIKE '%enterprises%'; 
+-- 12. Select employees with gross_pay between 50000 and 100000
+SELECT * FROM tax_payroll WHERE gross_pay BETWEEN 50000 AND 100000;
+-- Note: employees earning 50k–100k
 
---14.	Select sales reps whose name is either 'James Kariuki' or 'Brian Otieno'.
-SELECT *FROM sales_reps
-WHERE rep_name IN ('James Kariuki', 'Brian Otieno');
+-- 13. Select customers whose name contains 'Enterprises'
+SELECT * FROM customers WHERE customer_name ILIKE '%enterprises%';
+-- Note: customers with 'Enterprises' in name
 
---15.	Select payments not equal to 100000.
-SELECT *FROM payments
-WHERE amount_paid !=100000;
+-- 14. Select sales reps whose name is either 'James Kariuki' or 'Brian Otieno'
+SELECT * FROM sales_reps WHERE rep_name IN ('James Kariuki', 'Brian Otieno');
+-- Note: James Kariuki or Brian Otieno
 
---16.	Select payroll employees not in HR department.
-SELECT *FROM tax_payroll
-WHERE dept IN('Finance','Sales','IT');
---17.	Select invoices where invoice_amount >= 90000 AND rep_id = 1.
-SELECT *FROM invoices
-WHERE invoice_amount >= 90000 AND rep_id = 1;
+-- 15. Select payments not equal to 100000
+SELECT * FROM payments WHERE amount_paid != 100000;
+-- Note: payments not equal to 100,000
 
---18.	Select employees whose name ends with 'Mwangi'.
-SELECT *FROM tax_payroll
-WHERE full_name LIKE '%Mwangi';
+-- 16. Select payroll employees not in HR department
+SELECT * FROM tax_payroll WHERE dept IN ('Finance','Sales','IT');
+-- Note: employees not in HR
 
---19.	Select customers not from Mombasa.
-SELECT *FROM customers
-WHERE city <> 'Mombasa';
+-- 17. Select invoices where invoice_amount >= 90000 AND rep_id = 1
+SELECT * FROM invoices WHERE invoice_amount >= 90000 AND rep_id = 1;
+-- Note: invoices ≥90k handled by rep 1
 
---20.	Select invoices where invoice_amount is a multiple of 5000
-SELECT *FROM invoices
-WHERE invoice_amount %5000 = 0;
+-- 18. Select employees whose name ends with 'Mwangi'
+SELECT * FROM tax_payroll WHERE full_name LIKE '%Mwangi';
+-- Note: employees with last name 'Mwangi'
 
+-- 19. Select customers not from Mombasa
+SELECT * FROM customers WHERE city <> 'Mombasa';
+-- Note: customers outside Mombasa
 
---Level 3 – Aggregates (SUM, AVG, MIN, MAX, COUNT)
---21.	Count the total number of customers.
-SELECT
-COUNT(*) AS total_customers
-FROM customers;
+-- 20. Select invoices where invoice_amount is a multiple of 5000
+SELECT * FROM invoices WHERE invoice_amount % 5000 = 0;
+-- Note: invoices divisible by 5000
 
---22.	Count invoices per customer.
-SELECT 
-c.customer_name,
-COUNT(i.invoice_id)AS invoice_per_customer
+-- 21. Count the total number of customers
+SELECT COUNT(*) AS total_customers FROM customers;
+-- Note: total number of customers
+
+-- 22. Count invoices per customer
+SELECT c.customer_name, COUNT(i.invoice_id) AS invoice_per_customer
 FROM customers c
 LEFT JOIN invoices i ON c.customer_id = i.customer_id
 GROUP BY c.customer_name
-ORDER BY invoice_per_customer  ;
+ORDER BY invoice_per_customer;
+-- Note: number of invoices per customer
 
---23.	Sum of all invoice amounts.
---24.	Average invoice_amount per customer.
---25.	Maximum gross pay in payroll.
---26.	Minimum gross pay in payroll.
---27.	Total payments received.
---28.	Total unpaid invoice balance.
---29.	Average net_pay in payroll.
---30.	Count of payroll employees per department.
+-- 23. Sum of all invoice amounts
+SELECT SUM(invoice_amount) AS total_invoices FROM invoices;
+-- Note: total sum of invoices
+
+-- 24. Average invoice_amount per customer
+SELECT c.customer_name, AVG(i.invoice_amount) AS avg_invoice
+FROM customers c
+JOIN invoices i ON c.customer_id = i.customer_id
+GROUP BY c.customer_name;
+-- Note: average invoice amount per customer
+
+-- 25. Maximum gross pay in payroll
+SELECT MAX(gross_pay) AS max_gross FROM tax_payroll;
+-- Note: highest gross pay
+
+-- 26. Minimum gross pay in payroll
+SELECT MIN(gross_pay) AS min_gross FROM tax_payroll;
+-- Note: lowest gross pay
+
+-- 27. Total payments received
+SELECT SUM(amount_paid) AS total_paid FROM payments;
+-- Note: total payments received
+
+-- 28. Total unpaid invoice balance
+SELECT SUM(i.invoice_amount - COALESCE(paid.total_paid, 0)) AS total_balance
+FROM invoices i
+LEFT JOIN (
+    SELECT invoice_id, SUM(amount_paid) AS total_paid
+    FROM payments
+    GROUP BY invoice_id
+) AS paid ON i.invoice_id = paid.invoice_id;
+-- Note: total unpaid invoice balance
+
+-- 29. Average net_pay in payroll
+SELECT AVG(net_pay) AS avg_net_pay FROM tax_payroll;
+-- Note: average net pay
+
+-- 30. Count of payroll employees per department
+SELECT dept, COUNT(*) AS employee_count
+FROM tax_payroll
+GROUP BY dept;
+-- Note: employee count per department
+
 --Level 4 – GROUP BY and HAVING
 --31.	Total invoice amount per customer.
 --32.	Total invoice amount per sales rep.
