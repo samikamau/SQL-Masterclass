@@ -380,15 +380,49 @@ ORDER BY total_invoices;
 
 --Level 5 – Joins (INNER, LEFT, RIGHT, FULL)
 --41.	Join invoices and customers to get customer_name for each invoice.
+SELECT
+c.customer_name,
+i.invoice_id
+FROM customers c
+JOIN invoices i ON c.customer_id=i.customer_id;
+
 --42.	Join invoices and sales_reps to get rep_name for each invoice.
+SELECT 
+i.invoice_id,
+s.rep_name
+FROM invoices i
+JOIN sales_reps s ON i.rep_id = s.rep_id;
+
 --43.	Left join payments to invoices to see all invoices even if unpaid.
+
+SELECT 
+i.invoice_id,
+p.payment_id
+FROM invoices i
+LEFT JOIN payments p ON i.invoice_id = p.invoice_id;
 --44.	Inner join payments with invoices to see paid invoices only.
+SELECT 
+i.invoice_id,
+p.payment_id
+FROM invoices i
+JOIN payments p ON i.invoice_id = p.invoice_id;
+
 --45.	Join customers, invoices, and payments to show invoice balance.
+SELECT
+c.customer_name
+i.invoice_id,
+p.payment_id
+FROM invoices i
+JOIN payments p ON i.invoice_id = p.invoice_id;
+
 --46.	Join tax_payroll with employees in Sales to show gross pay.
 --47.	Full join invoices and payments to see invoices without payments and extra payments.
 --48.	Join invoices with sales_reps and count invoices per rep.
 --49.	Join customers and payments to see total payment received per city.
 --50.	Join invoices and tax_payroll to show invoices and employee payroll side-by-side (practice outer join).
+SELECT * FROM
+
+
 
 --Level 6 – Subqueries (Scalar, Row, Correlated)
 --51.	Find employees whose gross_pay is greater than the average gross_pay.
