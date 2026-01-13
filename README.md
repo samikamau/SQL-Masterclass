@@ -409,24 +409,88 @@ JOIN payments p ON i.invoice_id = p.invoice_id;
 
 --45.	Join customers, invoices, and payments to show invoice balance.
 SELECT
-c.customer_name
-i.invoice_id,
-p.payment_id
-FROM invoices i
-JOIN payments p ON i.invoice_id = p.invoice_id;
+    c.customer_name,
+    i.invoice_id,
+    i.invoice_amount,
+    COALESCE(SUM(p.amount_paid), 0) AS total_paid,
+    i.invoice_amount - COALESCE(SUM(p.amount_paid), 0) AS balance
+FROM customers c
+JOIN invoices i ON c.customer_id = i.customer_id
+LEFT JOIN payments p ON i.invoice_id = p.invoice_id
+GROUP BY
+    c.customer_name,
+    i.invoice_id,
+    i.invoice_amount
+ORDER BY i.invoice_id;
 
 --46.	Join tax_payroll with employees in Sales to show gross pay.
+SELECT 
+full_name,
+dept,
+gross_pay
+FROM tax_payroll
+WHERE dept = 'Sales'
+ORDER BY gross_pay DESC;
+
 --47.	Full join invoices and payments to see invoices without payments and extra payments.
+SELECT
+i.invoice_id,
+i.invoice_amount,
+p.payment_id,
+p.amount_paid
+FROM invoices i
+FULL JOIN payments p ON i.invoice_id=p.invoice_id;
+
 --48.	Join invoices with sales_reps and count invoices per rep.
+SELECT
+s.rep_name,
+COUNT(i.invoice_id)AS invoices_per_rep
+FROM sales_reps s
+JOIN invoices i ON s.rep_id = i.rep_id
+GROUP BY s.rep_name
+ORDER BY invoices_per_rep DESC;
+
 --49.	Join customers and payments to see total payment received per city.
+SELECT
+    c.city,
+    SUM(p.amount_paid) AS total_payments
+FROM customers c
+JOIN invoices i ON c.customer_id = i.customer_id
+JOIN payments p ON i.invoice_id = p.invoice_id
+GROUP BY c.city
+ORDER BY total_payments DESC;
 --50.	Join invoices and tax_payroll to show invoices and employee payroll side-by-side (practice outer join).
-SELECT * FROM
+SELECT
+    i.invoice_id,
+    i.invoice_amount,
+    t.full_name AS employee_name,
+    t.gross_pay
+FROM invoices i
+LEFT JOIN tax_payroll t
+ON 1=1  -- no real join condition, just for practice to show side-by-side
+ORDER BY i.invoice_id;
 
 
 
 --Level 6 – Subqueries (Scalar, Row, Correlated)
 --51.	Find employees whose gross_pay is greater than the average gross_pay.
+SELECT
+full_name,
+dept,
+gross_pay
+FROM tax_payroll
+WHERE gross_pay >(
+SELECT AVG(gross_pay)
+FROM tax_payroll
+);
 --52.	Find invoices greater than the average invoice amount.
+SELECT
+invoice_id,
+invoice_amount
+FROM invoices
+WHERE invoice_amount > (
+SELECT AVG(invoice_amount)
+FROM invoices);
 --53.	Find customers who have invoices > 100000.
 --54.	Find payroll employees earning more than the maximum gross_pay of HR.
 --55.	Count invoices where amount_paid < average payment amount.
@@ -462,6 +526,7 @@ SELECT * FROM
 
 --Level 9 – Advanced Aggregates and Multi-table Analytics
 --81.	Show top 3 customers by total invoice amount.
+
 --82.	Show top 3 employees by net_pay per department.
 --83.	Calculate total payment per customer per month.
 --84.	Show unpaid invoice count per sales rep.
@@ -490,5 +555,3 @@ SELECT * FROM
 		--•	Total paid
 		--•	Balance
 		--•	Number of invoices
-
-
