@@ -1,3 +1,4 @@
+--SQL-Practice-Project/
 -- 1️⃣ CLEAN UP (drop dependent objects first)
 DROP VIEW IF EXISTS vw_sales_analysis;
 DROP TABLE IF EXISTS payments;
@@ -5,8 +6,7 @@ DROP TABLE IF EXISTS invoices;
 DROP TABLE IF EXISTS customers;
 DROP TABLE IF EXISTS sales_reps;
 DROP TABLE IF EXISTS tax_payroll;
-
--- 2️⃣ CREATE TABLES
+-- 01_Create_Tables.sql
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
     customer_name VARCHAR(255),
@@ -45,7 +45,7 @@ CREATE TABLE tax_payroll(
     paye NUMERIC(12,2),
     net_pay NUMERIC(12,2)
 );
-
+-- 02_Insert_Data.sql
 -- 3️⃣ INSERT CUSTOMERS (20 entries)
 INSERT INTO customers(customer_name, city) VALUES
 ('Alpha Traders','Nairobi'), ('Beta Stores','Mombasa'), ('Gamma Supplies','Kisumu'),
@@ -126,7 +126,7 @@ SELECT
     END AS net_pay
 FROM employees;
 
--- 8️⃣ CREATE COMBINED ANALYTICS VIEW
+-- 03_Views.sql
 CREATE VIEW vw_sales_analysis AS
 SELECT
     i.invoice_id,
@@ -146,12 +146,7 @@ GROUP BY i.invoice_id, c.customer_name, c.city, s.rep_name, i.invoice_date, i.in
 -- 9️⃣ TEST COMBINED DATA
 SELECT * FROM vw_sales_analysis ORDER BY invoice_id;
 SELECT * FROM tax_payroll ORDER BY id;
-
-
--- ============================================
--- 4️⃣ QUERIES FOR QUESTIONS 1–30
--- ============================================
-
+-- 04_Basic_Queries.sql
 -- 1. Select all columns from customers
 SELECT * FROM customers;
 -- Note: all customer details
@@ -286,8 +281,7 @@ SELECT dept, COUNT(*) AS employee_count
 FROM tax_payroll
 GROUP BY dept;
 -- Note: employee count per department
-
---Level 4 – GROUP BY and HAVING
+--05_GroupBy_Having.sql
 --31.	Total invoice amount per customer.
 SELECT
 c.customer_name,
@@ -376,9 +370,7 @@ LEFT JOIN invoices i ON s.rep_id =i.rep_id
 GROUP BY s.rep_name
 HAVING COUNT(i.invoice_id)>3
 ORDER BY total_invoices;
-
-
---Level 5 – Joins (INNER, LEFT, RIGHT, FULL)
+--06_Joins.sql
 --41.	Join invoices and customers to get customer_name for each invoice.
 SELECT
 c.customer_name,
@@ -470,9 +462,7 @@ LEFT JOIN tax_payroll t
 ON 1=1  -- no real join condition, just for practice to show side-by-side
 ORDER BY i.invoice_id;
 
-
-
---Level 6 – Subqueries (Scalar, Row, Correlated)
+-- 07_Subqueries.sql
 --51.	Find employees whose gross_pay is greater than the average gross_pay.
 SELECT
 full_name,
@@ -534,8 +524,7 @@ HAVING COALESCE(SUM(p.amount_paid), 0) = 0;
 --58.	Find sales reps who handled the most invoices.
 --59.	Select payroll employees whose net_pay > average net_pay in their department.
 --60.	Find payments where amount_paid = (SELECT MAX(amount_paid) FROM payments).
-
---Level 7 – Window Functions (OVER, PARTITION BY, ROW_NUMBER, RANK)
+-- 08_Window_Functions.sql
 --61.	Rank payroll employees by net_pay in each department.
 --62.	Show cumulative sum of invoice_amount per customer.
 --63.	Show cumulative payments per invoice.
@@ -546,8 +535,7 @@ HAVING COALESCE(SUM(p.amount_paid), 0) = 0;
 --68.	Show moving average of payments per invoice.
 --69.	Partition payroll by department and show average net_pay.
 --70.	Show percent_rank of employees by gross_pay.
-
---Level 8 – Advanced Filtering (CASE, COALESCE, NULLs)
+-- 09_Advanced_Filters.sql
 --71.	Display a new column payment_status for invoices: 'Paid' or 'Unpaid'.
 --72.	Show payroll and categorize net_pay as 'Low', 'Medium', 'High'.
 --73.	Replace NULL payments with 0 using COALESCE.
@@ -558,10 +546,8 @@ HAVING COALESCE(SUM(p.amount_paid), 0) = 0;
 --78.	Replace NULL rep_name in invoices with 'Not Assigned'.
 --79.	Categorize invoice_amount into bands (0-50000, 50001-100000, 100001+).
 --80.	Show payroll net_pay difference from department average using CASE.
-
---Level 9 – Advanced Aggregates and Multi-table Analytics
+--10_Analytics.sql
 --81.	Show top 3 customers by total invoice amount.
-
 --82.	Show top 3 employees by net_pay per department.
 --83.	Calculate total payment per customer per month.
 --84.	Show unpaid invoice count per sales rep.
@@ -590,3 +576,5 @@ HAVING COALESCE(SUM(p.amount_paid), 0) = 0;
 		--•	Total paid
 		--•	Balance
 		--•	Number of invoices
+-- README.md
+
