@@ -492,9 +492,44 @@ WHERE invoice_amount > (
 SELECT AVG(invoice_amount)
 FROM invoices);
 --53.	Find customers who have invoices > 100000.
+SELECT 
+c.customer_name,
+i.invoice_id,
+i.invoice_amount
+FROM customers c
+JOIN invoices i ON c.customer_id = i.customer_id
+WHERE invoice_amount>100000;
 --54.	Find payroll employees earning more than the maximum gross_pay of HR.
+SELECT 
+full_name,
+gross_pay
+FROM tax_payroll
+WHERE gross_pay > (
+SELECT MAX(gross_pay)
+FROM tax_payroll
+WHERE dept ='HR'
+);
+
 --55.	Count invoices where amount_paid < average payment amount.
+SELECT
+COUNT(DISTINCT i.invoice_id)AS no_of_invoices
+FROM invoices i
+JOIN payments p ON i.invoice_id=p.invoice_id
+WHERE p.amount_paid<(
+SELECT 
+AVG(p.amount_paid)
+FROM payments p
+);
 --56.	List customers who never made a payment.
+SELECT
+    c.customer_name
+FROM customers c
+LEFT JOIN invoices i ON c.customer_id = i.customer_id
+LEFT JOIN payments p ON i.invoice_id = p.invoice_id
+GROUP BY c.customer_name
+HAVING COALESCE(SUM(p.amount_paid), 0) = 0;
+
+
 --57.	Find invoices with the highest balance.
 --58.	Find sales reps who handled the most invoices.
 --59.	Select payroll employees whose net_pay > average net_pay in their department.
